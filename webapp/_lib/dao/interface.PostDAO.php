@@ -53,19 +53,18 @@ interface PostDAO {
     $count = 350, $page = 1);
 
     /**
-     * Get replies to a post on a given time frame.
+     * Get replies to a post in a given time frame.
      * @param str $post_id
      * @param str $network
      * @param str $order_by Order of sorting posts
      * @param int $unit Defaults to km
      * @param bool $public Defaults to false
      * @param int $count Defaults to 350
-     * @param int $page The page of results to return. Defaults to 1. Pages start
-     * at 1, not 0.
+     * @param int $page The page of results to return. Defaults to 1. Pages start at 1, not 0.
      * @return array Posts with author object set, and optional link object set
      */
-    public function getRepliesToPostInRange($post_id, $network, $from, $until, $order_by = 'default', $unit = 'km', $is_public = false,
-    $count = 350, $page = 1);
+    public function getRepliesToPostInRange($post_id, $network, $from, $until, $order_by = 'default', $unit = 'km',
+    $is_public = false, $count = 350, $page = 1);
 
     /**
      * Get replies Iterator to a post
@@ -373,8 +372,8 @@ interface PostDAO {
      * to "DESC".
      * @return array of Post objects with author and link set
      */
-    public function getAllMentionsInRange($author_username, $count, $network = "twitter", $from, $until, $page=1, $public=false,
-    $include_rts = true, $order_by = 'pub_date', $direction = 'DESC');
+    public function getAllMentionsInRange($author_username, $count, $network = "twitter", $from, $until, $page=1,
+    $public=false, $include_rts = true, $order_by = 'pub_date', $direction = 'DESC');
 
     /**
      * Get all replies to a given user ID
@@ -405,8 +404,8 @@ interface PostDAO {
      * false.
      * @return array Posts with author and link set
      */
-    public function getAllRepliesInRange($user_id, $network, $count, $from, $until, $page = 1, $order_by = 'pub_date', $direction = 'DESC',
-    $is_public = false);
+    public function getAllRepliesInRange($user_id, $network, $count, $from, $until, $page = 1, $order_by = 'pub_date',
+    $direction = 'DESC', $is_public = false);
 
     /**
      * Get posts by a user ordered by reply count desc

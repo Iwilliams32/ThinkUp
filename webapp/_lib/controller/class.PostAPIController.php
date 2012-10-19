@@ -353,7 +353,8 @@ class PostAPIController extends ThinkUpController {
                  *
                  * Required arguments: post_id
                  *
-                 * Optional arguments: network, order_by, unit, count, page, include_entities, include_replies, trim_user
+                 * Optional arguments: network, order_by, unit, count, page, include_entities, include_replies,
+                 * trim_user
                  *
                  * Docs: http://thinkupapp.com/docs/userguide/api/posts/post_retweets.html
                  */
@@ -372,7 +373,8 @@ class PostAPIController extends ThinkUpController {
                  *
                  * Required arguments: post_id
                  *
-                 * Optional arguments: network, order_by, unit, count, page, include_entities, include_replies, trim_user
+                 * Optional arguments: network, order_by, unit, count, page, include_entities, include_replies,
+                 * trim_user
                  *
                  * Ordering can only be done by either location or follower count.
                  *
@@ -394,7 +396,8 @@ class PostAPIController extends ThinkUpController {
                  *
                  * Required arguments: post_id, from and until
                  *
-                 * Optional arguments: network, order_by, unit, count, page, include_entities, include_replies, trim_user
+                 * Optional arguments: network, order_by, unit, count, page, include_entities, include_replies,
+                 * trim_user
                  *
                  * Ordering can only be done by either location or follower count.
                  *
@@ -405,8 +408,8 @@ class PostAPIController extends ThinkUpController {
                     $m = 'A request of type ' . $this->type . ' requires a post_id to be specified.';
                     throw new RequiredArgumentMissingException($m);
                 } else {
-                    $data = $this->post_dao->getRepliesToPostInRange($this->post_id, $this->network, $this->from, $this->until, $this->order_by,
-                    $this->unit, $this->is_public, $this->count, $this->page);
+                    $data = $this->post_dao->getRepliesToPostInRange($this->post_id, $this->network, $this->from,
+                    $this->until, $this->order_by, $this->unit, $this->is_public, $this->count, $this->page);
                 }
                 break;
 
@@ -554,8 +557,8 @@ class PostAPIController extends ThinkUpController {
                  * Docs: http://thinkupapp.com/docs/userguide/api/posts/user_questions.html
                  */
             case 'user_questions_in_range':
-                $data = $this->post_dao->getAllQuestionPostsInRange($this->user->user_id, $this->network, $this->count, $this->from, $this->until,
-                $this->page, $this->order_by, $this->direction, $this->is_public);
+                $data = $this->post_dao->getAllQuestionPostsInRange($this->user->user_id, $this->network, $this->count,
+                $this->from, $this->until, $this->page, $this->order_by, $this->direction, $this->is_public);
                 break;
 
                 /*
@@ -584,8 +587,8 @@ class PostAPIController extends ThinkUpController {
                  * http://thinkupapp.com/docs/userguide/api/posts/user_replies.html
                  */
             case 'user_replies_in_range':
-                $data = $this->post_dao->getAllRepliesInRange($this->user->user_id, $this->network, $this->count,$this->from, $this->until,
-                $this->page, $this->order_by, $this->direction, $this->is_public);
+                $data = $this->post_dao->getAllRepliesInRange($this->user->user_id, $this->network, $this->count,
+                $this->from, $this->until, $this->page, $this->order_by, $this->direction, $this->is_public);
                 break;
 
                 /*

@@ -207,8 +207,8 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         return $replies;
     }
 
-    public function getRepliesToPostInRange($post_id, $network, $from, $until, $order_by = 'default', $unit = 'km', $is_public = false,
-    $count = 350, $page = 1) {
+    public function getRepliesToPostInRange($post_id, $network, $from, $until, $order_by = 'default', $unit = 'km',
+    $is_public = false, $count = 350, $page = 1) {
         $start_on_record = ($page - 1) * $count;
 
         $q = "SELECT u.*, p.*, (CASE p.is_geo_encoded WHEN 0 THEN 9 ELSE p.is_geo_encoded END) AS geo_status, ";
@@ -229,16 +229,13 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         }
         $q .= 'ORDER BY ' . $ordering. ';';
 
-
         $vars = array(
             ':post_id'=>(string)$post_id,
             ':network'=>$network,
             ':user_network'=>($network == 'facebook page') ? 'facebook' : $network,
             ':from' => $from,
             ':until' => $until
-
         );
-
 
         if ($this->profiler_enabled) Profiler::setDAOMethod(__METHOD__);
         $ps = $this->execute($q, $vars);
@@ -986,8 +983,8 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         return $posts;
     }
 
-    public function getAllQuestionPostsInRange($author_id, $network, $count, $from, $until, $page=1, $order_by = 'pub_date',
-    $direction = 'DESC', $is_public = false) {
+    public function getAllQuestionPostsInRange($author_id, $network, $count, $from, $until, $page=1,
+    $order_by = 'pub_date', $direction = 'DESC', $is_public = false) {
 
         $order_by = $this->sanitizeOrderBy($order_by);
 
@@ -1012,7 +1009,6 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
             ':format2'=>"%\\? %",
             ':from' => $from,
             ':until' => $until
-
         );
         if ($this->profiler_enabled) Profiler::setDAOMethod(__METHOD__);
         $ps = $this->execute($q, $vars);
@@ -1457,8 +1453,8 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         $public, $include_rts, $order_by, $direction);
     }
 
-    private function getMentionsInRange($author_username, $count, $network, $from, $until, $iterator, $page=1, $public=false,
-    $include_rts = true, $order_by = 'pub_date', $direction = 'DESC') {
+    private function getMentionsInRange($author_username, $count, $network, $from, $until, $iterator, $page=1,
+    $public=false, $include_rts = true, $order_by = 'pub_date', $direction = 'DESC') {
         $start_on_record = ($page - 1) * $count;
 
         $order_by = $this->sanitizeOrderBy($order_by);
@@ -1580,8 +1576,8 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         return $posts;
     }
 
-    public function getAllRepliesInRange($user_id, $network, $count, $from, $until,$page = 1, $order_by = 'pub_date', $direction = 'DESC',
-    $is_public = false) {
+    public function getAllRepliesInRange($user_id, $network, $count, $from, $until,$page = 1, $order_by = 'pub_date',
+    $direction = 'DESC', $is_public = false) {
         $start_on_record = ($page - 1) * $count;
 
         $order_by = $this->sanitizeOrderBy($order_by);
