@@ -1046,7 +1046,7 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
             $this->assertTrue(strtotime($post->created_at) >= strtotime($_GET['from']));
             $this->assertTrue(strtotime($post->created_at) < strtotime($_GET['until']));
         }
-               
+
         $this->assertEqual(sizeof($output), 2);
         $this->assertEqual($output[0]->id, 131);
         $this->assertEqual($output[1]->id, 133);
@@ -1100,7 +1100,7 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
         $installer_dao = DAOFactory::getDAO('InstallerDAO');
         $this->assertTrue(array_search($prefix . "posts", $installer_dao->getTables()) !== false);
     }
-        
+
     public function testRelatedPosts() {
         $_GET['type'] = 'related_posts';
         $_GET['post_id'] = 41;
@@ -1713,7 +1713,7 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
         $this->assertTrue(array_search($prefix . "posts", $installer_dao->getTables()) !== false);
     }
 
-   public function testUserMentionsInRange() {
+    public function testUserMentionsInRange() {
         $_GET['type'] = 'user_mentions_in_range';
         $_GET['user_id'] = 18;
         $_GET['from'] = '2006-03-01 00:00:00';
@@ -1843,7 +1843,7 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
         $output = json_decode($controller->go());
         $this->assertEqual(sizeof($output), 2);
 
-      // test trim user
+        // test trim user
         unset($_GET['include_entities']);
         $_GET['trim_user'] = true;
         $controller = new PostAPIController(true);
@@ -2105,7 +2105,7 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
         }
 
         $this->assertEqual(sizeof($output), 2);
-        
+
         // test order_by
         $_GET['order_by'] = 'date';
         $_GET['direction'] = 'DESC';
@@ -2221,7 +2221,7 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
         $installer_dao = DAOFactory::getDAO('InstallerDAO');
         $this->assertTrue(array_search($prefix . "posts", $installer_dao->getTables()) !== false);
     }
-    
+
     public function testUserQuestions() {
         $_GET['type'] = 'user_questions';
         $_GET['user_id'] = 20;
@@ -2378,9 +2378,9 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
         $this->assertTrue(array_search($prefix . "posts", $installer_dao->getTables()) !== false);
     }
 
-   public function testUserQuestionsInRange() {
+    public function testUserQuestionsInRange() {
         $_GET['type'] = 'user_questions_in_range';
-        $_GET['user_id'] = 20; 
+        $_GET['user_id'] = 20;
         $_GET['from'] = '2006-03-01 00:00:00';
         $_GET['until'] = '2006-03-02 00:59:59';
         $controller = new PostAPIController(true);
@@ -2397,7 +2397,7 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
              * SET timezone statement in PDODAO::connect function
              */
             $this->assertTrue(strtotime($post->created_at) >= strtotime($_GET['from']));
-            $this->assertTrue(strtotime($post->created_at) < strtotime($_GET['until']));            
+            $this->assertTrue(strtotime($post->created_at) < strtotime($_GET['until']));
         }
 
         // test order_by
@@ -2513,8 +2513,8 @@ class TestOfPostAPIController extends ThinkUpUnitTestCase {
         }
         $installer_dao = DAOFactory::getDAO('InstallerDAO');
         $this->assertTrue(array_search($prefix . "posts", $installer_dao->getTables()) !== false);
-    }    
-    
+    }
+
     public function testUserQuestionsProtectedOnNetwork() {
         $_GET['type'] = 'user_questions';
         $_GET['user_id'] = 24;

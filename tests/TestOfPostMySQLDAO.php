@@ -423,14 +423,14 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
     /**
      * Test getAllQuestionPostosInRange
      */
-     public function testgetAllQuestionPostsInRange() {
+    public function testgetAllQuestionPostsInRange() {
         $builders = array();
         //Add a question
         $post_builder = FixtureBuilder::build('posts', array('author_user_id'=>'13', 'author_username'=>'ev',
         'post_text'=>'I need a new cell phone. Not this http://bit.ly/blah or this http://bit.ly/blah2 '.
         'What should I buy?', 'network'=>'twitter', 'in_reply_to_post_id'=>0,
         'pub_date'=>'2006-02-01 00:05:00'));
- 
+
         array_push($builders, $post_builder);
         $post_key = $post_builder->columns['last_insert_id'];
 
@@ -438,7 +438,7 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
         $builders[] = FixtureBuilder::build('links', array('post_key'=>$post_key, 'url'=>'http://bit.ly/blah2'));
 
         $dao = new PostMySQLDAO();
-        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:04:00', 
+        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:04:00',
         $until= '2006-02-02 00:10:00');
 
         $this->debug('Questions: ' . $questions);
@@ -452,10 +452,10 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
 
         //Add another question
         $builder[] = FixtureBuilder::build('posts', array('author_user_id'=>13, 'author_username'=>'ev',
-        'post_text'=>'Best sushi in NY? downtown', 'network'=>'twitter', 'in_reply_to_post_id'=>0, 
+        'post_text'=>'Best sushi in NY? downtown', 'network'=>'twitter', 'in_reply_to_post_id'=>0,
 	'pub_date'=>'2006-02-01 00:06:00'));
 
-        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:04:00', 
+        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:04:00',
         $until= '2006-02-01 00:10:00');
         $this->assertEqual(sizeof($questions), 2);
         $this->assertEqual($questions[0]->post_text, 'Best sushi in NY? downtown' );
@@ -466,29 +466,29 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
         $builder[] = FixtureBuilder::build('posts', array('author_user_id'=>13, 'author_username'=>'ev',
         'post_text'=>'Love this video: http://www.youtube.com/watch?v=PQu-zrE-k5s', 'network'=>'twitter',
         'in_reply_to_post_id'=>0, 'pub_date'=>'2006-02-01 00:07:00'));
-        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:04:00', 
+        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:04:00',
         $until= '2006-02-01 00:10:00');
         $this->assertEqual(sizeof($questions), 2);
-        
+
         // test ascending order
         $posts = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:01:00',
         $until = '2006-02-01 00:10:00',$page=1, $order_by = 'pub_date', $direction = 'ASC');
         $this->assertEqual(sizeof($posts), 2);
-	foreach($posts as $post) {
+        foreach($posts as $post) {
             $this->assertTrue(strtotime($post->pub_date) >= $date);
             $date = strtotime($post->pub_date);
         }
 
-        
+
         // test range with no posts
-        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:10:00', 
+        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:10:00',
         $until= '2006-02-01 00:15:00');
         $this->assertEqual(sizeof($questions), 0);
 
         // test from greater than until
-        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:10:00', 
+        $questions = $dao->getAllQuestionPostsInRange('13', 'twitter', '10', $from = '2006-02-01 00:10:00',
         $until= '2006-01-01 00:15:00');
-        $this->assertEqual(sizeof($questions), 0);   
+        $this->assertEqual(sizeof($questions), 0);
     }
 
     /**
@@ -627,7 +627,7 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
         $dao = new PostMySQLDAO();
         $posts = $dao->getAllRepliesInRange(23, 'twitter', 200, $from = '2006-02-28 23:50:00',
         $until = '2006-03-02 00:30:59', $order_by="pub_date", $direction="DESC");
-	$this->assertEqual(sizeof($posts),2);
+        $this->assertEqual(sizeof($posts),2);
         // test date ordering and time range check
         $date = strtotime($posts[0]->pub_date);
         foreach($posts as $post) {
@@ -640,7 +640,7 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
 
         // test ascending order
         $posts = $dao->getAllRepliesInRange(13, 'twitter', 500,$from = '2006-02-28 23:50:00',
-	$until = '2006-03-01 00:30:59',  $order_by="pub_date", $direction="ASC");
+        $until = '2006-03-01 00:30:59',  $order_by="pub_date", $direction="ASC");
 
         $date = strtotime($posts[0]->pub_date);
         foreach($posts as $post) {
@@ -733,19 +733,19 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
      */
     public function testgetAllMentionsInRange() {
         $dao = new PostMySQLDAO();
-	$mentions = $dao->getAllMentionsInRange("ev", $count = 200, $network = 'twitter', $from = '2006-03-01 00:00:00',
+        $mentions = $dao->getAllMentionsInRange("ev", $count = 200, $network = 'twitter', $from = '2006-03-01 00:00:00',
         $until = '2006-03-01 01:00:00', $page=1, $public=false, $include_rts = true, $order_by="pub_date", $direction="DESC");
-        
+
         $this->assertEqual($mentions[0]->post_text, "Hey @ev and @jack should fix Twitter - post 9");
-	$this->assertEqual($mentions[2]->post_text, "Hey @ev and @jack should fix Twitter - post 7");
-	
+        $this->assertEqual($mentions[2]->post_text, "Hey @ev and @jack should fix Twitter - post 7");
+
         $mentions = $dao->getAllMentionsInRange("jack", $count = 200, $network = 'twitter', $from = '2006-03-01 00:00:00',
         $until = '2006-03-01 01:00:00', $page=1, $public=false, $include_rts = true, $order_by="pub_date", $direction="DESC");
 
         $this->assertEqual(sizeof($mentions), 10);
 
 
-	// test ascending order
+        // test ascending order
         $posts = $dao->getAllMentionsInRange("jack", $count = 200, $network = 'twitter', $from = '2006-02-28 23:59:00',
         $until = '2006-03-01 01:00:00', $page=1, $public=false, $include_rts = true, $order_by="pub_date", $direction="ASC");
 
@@ -1126,7 +1126,7 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
     /**
      * Test getRepliesToPostInRange
      */
-     public function testgetRepliesToPostInRange() {
+    public function testgetRepliesToPostInRange() {
         $dao = new PostMySQLDAO();
         // Default Sorting
         $posts = $dao->getRepliesToPostInRange('41', 'twitter', $from = '2006-03-01 00:00:00',$until = '2006-03-02 23:30:59',
@@ -1138,7 +1138,7 @@ class TestOfPostMySQLDAO extends ThinkUpUnitTestCase {
         $this->assertEqual($posts[1]->location,'Chennai, Tamil Nadu, India');
         $this->assertEqual($posts[1]->post_id, '132', "post ID");
 
-        
+
         // test date ordering and time range check
         $date = strtotime($posts[0]->pub_date);
         foreach($posts as $post) {

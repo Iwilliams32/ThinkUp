@@ -207,7 +207,7 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         return $replies;
     }
 
-        public function getRepliesToPostInRange($post_id, $network, $from, $until, $order_by = 'default', $unit = 'km', $is_public = false,
+    public function getRepliesToPostInRange($post_id, $network, $from, $until, $order_by = 'default', $unit = 'km', $is_public = false,
     $count = 350, $page = 1) {
         $start_on_record = ($page - 1) * $count;
 
@@ -236,7 +236,7 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
             ':user_network'=>($network == 'facebook page') ? 'facebook' : $network,
             ':from' => $from,
             ':until' => $until
-            
+
         );
 
 
@@ -281,7 +281,7 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         }
         return $replies;
     }
-    
+
     public function getRepliesToPostIterator($post_id, $network, $order_by = 'default', $unit = 'km',
     $is_public = false, $count = 350, $page = 1) {
         $start_on_record = ($page - 1) * $count;
@@ -1011,8 +1011,8 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
             ':format1'=>"\\?$",
             ':format2'=>"%\\? %",
             ':from' => $from,
-            ':until' => $until 
-            
+            ':until' => $until
+
         );
         if ($this->profiler_enabled) Profiler::setDAOMethod(__METHOD__);
         $ps = $this->execute($q, $vars);
@@ -1043,8 +1043,8 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
             }
         }
         return $posts;
-    }    
-    
+    }
+
     /**
      * Get all posts by a given user with configurable order by field and direction
      * @param int $author_id
@@ -1451,9 +1451,9 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         return $posts;
     }
 
-    public function getAllMentionsInRange($author_username, $count, $network = "twitter", $from, $until, $page=1, 
-    	$public=false, $include_rts = true, $order_by = 'pub_date', $direction = 'DESC') {
-        return $this->getMentionsInRange($author_username, $count, $network, $from, $until, $iterator = false, $page, 
+    public function getAllMentionsInRange($author_username, $count, $network = "twitter", $from, $until, $page=1,
+    $public=false, $include_rts = true, $order_by = 'pub_date', $direction = 'DESC') {
+        return $this->getMentionsInRange($author_username, $count, $network, $from, $until, $iterator = false, $page,
         $public, $include_rts, $order_by, $direction);
     }
 
@@ -1470,7 +1470,7 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         $q .= "FROM #prefix#posts AS p ";
         $q .= "INNER JOIN #prefix#users AS u ON p.author_user_id = u.user_id ";
        	$q .= "WHERE p.network = :network AND pub_date BETWEEN :from AND :until ";
-                
+
         if ( strlen($author_username) > PostMySQLDAO::FULLTEXT_CHAR_MINIMUM ) {
             $q .= "AND MATCH (`post_text`) AGAINST(:author_username IN BOOLEAN MODE) ";
         } else {
@@ -1580,7 +1580,7 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         return $posts;
     }
 
-     public function getAllRepliesInRange($user_id, $network, $count, $from, $until,$page = 1, $order_by = 'pub_date', $direction = 'DESC',
+    public function getAllRepliesInRange($user_id, $network, $count, $from, $until,$page = 1, $order_by = 'pub_date', $direction = 'DESC',
     $is_public = false) {
         $start_on_record = ($page - 1) * $count;
 
@@ -1602,7 +1602,7 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
             ':from' => $from,
             ':until' => $until
         );
-               
+
         if ($this->profiler_enabled) Profiler::setDAOMethod(__METHOD__);
         $ps = $this->execute($q, $vars);
         $all_post_rows = $this->getDataRowsAsArrays($ps);
@@ -1634,7 +1634,7 @@ class PostMySQLDAO extends PDODAO implements PostDAO  {
         }
         return $posts;
     }
-    
+
     public function getMostRepliedToPosts($user_id, $network, $count, $page=1, $is_public = false) {
         return $this->getAllPostsByUserID($user_id, $network, $count, "reply_count_cache", "DESC", true, $page,
         $iterator = false, $is_public);

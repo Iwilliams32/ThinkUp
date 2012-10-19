@@ -388,7 +388,7 @@ class PostAPIController extends ThinkUpController {
                 }
                 break;
 
- 
+
                 /*
                  * Gets replies to a post within a date range.
                  *
@@ -409,8 +409,8 @@ class PostAPIController extends ThinkUpController {
                     $this->unit, $this->is_public, $this->count, $this->page);
                 }
                 break;
-                
-               /*
+
+                /*
                  * Get posts related to a post (replies to it, retweets of it).
                  *
                  * Required arguments: post_id
@@ -508,7 +508,7 @@ class PostAPIController extends ThinkUpController {
                 $this->page, $this->is_public, $this->include_rts, $this->order_by, $this->direction);
                 break;
 
-                
+
                 /*
                  * Gets posts a user is mentioned in.within a date range
                  *
@@ -517,17 +517,17 @@ class PostAPIController extends ThinkUpController {
                  * Optional arguments: network, count, page, include_rts, include_entities, include_replies, trim_user
                  */
             case 'user_mentions_in_range':
-              	if (is_null($this->from) || is_null($this->until)) {
+                if (is_null($this->from) || is_null($this->until)) {
                     $m = 'A request of type ' . $this->type . ' requires valid from and until parameters to be ';
                     $m .= 'specified.';
                     throw new RequiredArgumentMissingException($m);
-                } else {                
-                	$data = $this->post_dao->getAllMentionsInRange($this->user->username, $this->count, $this->network,
-                		$this->from, $this->until, $this->page, $this->is_public, $this->include_rts,$this->order_by, 
-                		$this->direction);
+                } else {
+                    $data = $this->post_dao->getAllMentionsInRange($this->user->username, $this->count, $this->network,
+                    $this->from, $this->until, $this->page, $this->is_public, $this->include_rts,$this->order_by,
+                    $this->direction);
                 }
                 break;
-                
+
                 /*
                  * Gets question posts a user has made.
                  *
@@ -552,12 +552,12 @@ class PostAPIController extends ThinkUpController {
                  * trim_user
                  *
                  * Docs: http://thinkupapp.com/docs/userguide/api/posts/user_questions.html
-                 */                
+                 */
             case 'user_questions_in_range':
                 $data = $this->post_dao->getAllQuestionPostsInRange($this->user->user_id, $this->network, $this->count, $this->from, $this->until,
                 $this->page, $this->order_by, $this->direction, $this->is_public);
                 break;
-                
+
                 /*
                  * Gets replies to a user.
                  *
@@ -572,7 +572,7 @@ class PostAPIController extends ThinkUpController {
                 $data = $this->post_dao->getAllReplies($this->user->user_id, $this->network, $this->count,
                 $this->page, $this->order_by, $this->direction, $this->is_public);
                 break;
-                
+
                 /*
                  * Gets replies to a user within a date range.
                  *
@@ -587,7 +587,7 @@ class PostAPIController extends ThinkUpController {
                 $data = $this->post_dao->getAllRepliesInRange($this->user->user_id, $this->network, $this->count,$this->from, $this->until,
                 $this->page, $this->order_by, $this->direction, $this->is_public);
                 break;
-                
+
                 /*
                  * Generate an error because the API call type was not recognized.
                  *

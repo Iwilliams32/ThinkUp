@@ -66,7 +66,7 @@ interface PostDAO {
      */
     public function getRepliesToPostInRange($post_id, $network, $from, $until, $order_by = 'default', $unit = 'km', $is_public = false,
     $count = 350, $page = 1);
-   
+
     /**
      * Get replies Iterator to a post
      * @param str $post_id
@@ -375,7 +375,7 @@ interface PostDAO {
      */
     public function getAllMentionsInRange($author_username, $count, $network = "twitter", $from, $until, $page=1, $public=false,
     $include_rts = true, $order_by = 'pub_date', $direction = 'DESC');
-    
+
     /**
      * Get all replies to a given user ID
      * @param int $user_id
@@ -391,7 +391,7 @@ interface PostDAO {
      */
     public function getAllReplies($user_id, $network, $count, $page = 1, $order_by = 'pub_date', $direction = 'DESC',
     $is_public = false);
-  
+
     /**
      * Get all replies to a given user ID on a given time frame.
      * @param int $user_id
@@ -407,7 +407,7 @@ interface PostDAO {
      */
     public function getAllRepliesInRange($user_id, $network, $count, $from, $until, $page = 1, $order_by = 'pub_date', $direction = 'DESC',
     $is_public = false);
- 
+
     /**
      * Get posts by a user ordered by reply count desc
      * @param int $user_id
